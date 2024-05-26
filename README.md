@@ -136,7 +136,8 @@ docker compose -p kitchenpos up -d
 |----------|-------------------|------------------------------------------------|----------------------------------------
 | 메뉴       | Menu              | 상품을 키친포스에서 팔기 위해 등록하는 단위를 말하며 메뉴는 상품으로 구성되어 있다 | 후라이드 콜라 콤보
 | 메뉴 이름    | Menu Name         | 메뉴의 이름이며 메뉴의 이름은 비속어를 포함 할 수 없다.               |
-| 메뉴 가격    | Menu Price        | 메뉴의 가격이며 메뉴의 가격은 음수가 될 수 없고 메뉴 구성 상품의 가격의 합보다 낮아야 한다.
+| 비속어      | Profanity         | 비속어                                       |
+| 메뉴 가격    | Menu Price        | 메뉴의 가격이며 메뉴의 가격은 음수가 될 수 없고 메뉴 구성 상품의 가격의 합보다 같거나 낮아야 한다.
 | 메뉴 구성 상품 | Menu Product      | 메뉴 구성 상품은 상품과 수량으로 구성된다                     | 후라이드 콜라 콤보의 메뉴 구성 상품은 후라이드 1개와 콜라 1개.
 | 메뉴 공개 상태 | Menu Displayed    | 메뉴의 공개 상태를 말한다. 메뉴의 공개 상태는 `공개`, `비공개` 있다    |
 
@@ -221,23 +222,23 @@ docker compose -p kitchenpos up -d
 
 ## 모델링
 
-### 상품의 속성
+### 상품
+#### 속성
 - `Product`는 식별자를 갖는다.
 - `Product`는 `Product Price`를 갖는다.
 - `Product`는 `Product Name`을 갖는다.
 
-### 상품의 행위
+#### 행위
 - `Product`를 등록한다.
 - `Product Price`를 변경한다.
 - `Product` 목록을 조회한다.
 
-### 상품의 정책
+#### 정책
 - `Product Price`는 음수가 될 수 없다.
 - `Product Name`는 `Profanity`를 포함 할 수 없다.
 - `Produc Price`가 변경될 때 `Menu Product` 상품 금액의 합보다 크다면 메뉴가 숨겨진다.
 
 ### 메뉴 그룹
-
 #### 속성
 - `Menu Group`은 식별자를 갖는다.
 - `Menu Group`은 `Menu Group Name`을 갖는다.
@@ -247,15 +248,18 @@ docker compose -p kitchenpos up -d
 - `Menu Group` 목록을 조회 한다.
 
 #### 정책
-- `Menu Group`의 이름은 공백이 될 수 없다.
+- `Menu Group`의 `Menu Group Name`은 공백이 될 수 없다.
 
-#### 메뉴
-
+### 메뉴
 #### 속성
 - `Menu`는 식별자를 갖는다.
 - `Menu`는 `Menu Name`을 갖는다.
 - `Menu`는 `Menu Price`를 갖는다.
-- `Menu`는 상품과 상품의 수량으로 구성되어 있는 `Menu Product`를 갖는다.
+- `Menu`는 `Menu Group`을 갖는다.
+- `Menu`는 `Menu Product`를 갖는다.
+  - `Menu Product`는 식별자를 갖는다.
+  - `Menu Product`는 `Product`를 갖는다.
+  - `Menu Product`는 `Quantity`를 갖는다.
 - `Menu`는 메뉴의 공개 상태를 표현하는 `Menu Displayed`를 갖는다.
 
 #### 행위
@@ -264,6 +268,22 @@ docker compose -p kitchenpos up -d
 - `Menu`의 공개 상태를 `공개`로 변경한다.
 - `Menu`의 공개 상태를 `비공개`로 변경한다.
 - `Menu` 목록을 조회한다.
+
+#### 정책
+##### `Menu` 등록
+- `Menu`는 하나 이상의 `Menu Group`에 속해 있어야 한다.
+- `Menu Product`를 1개 이상 가지고 있어야 한다.
+- `Menu Name`은 공백이 될 수 없다.
+- `Menu Name`은 `Profanity`를 포함 할 수 없다.
+- `Menu Price`는 0 이상 이어야 한다.
+- `Menu Price`는 `Menu Product`의 가격(`상품의 가격` * `상품의 수량`) 보다 같거나 낮아야 한다.
+
+##### `Menu Price` 변경
+- `Menu Price`는 `Menu Product`의 가격(`상품의 가격` * `상품의 수량`) 보다 같거나 낮아야 한다.
+
+##### `Menu`의 공개 상태를 `공개`로 변경
+- `Menu Price`가 `Menu Product`의 가격(`상품의 가격` * `상품의 수량`)이 높은 경우 `Menu`를 `공개`로 변경하지 않는다.
+
 
 ### 주문 테이블
 
