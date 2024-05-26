@@ -248,5 +248,20 @@ docker compose -p kitchenpos up -d
 #### 정책
 - `Menu Group`의 이름은 공백이 될 수 없다.
 
+#### 메뉴
+
+#### 속성
+- `Menu`는 식별자를 갖는다.
+- `Menu`는 `Menu Name`을 갖는다.
+- `Menu`는 `Menu Price`를 갖는다.
+- `Menu`는 상품과 상품의 수량으로 구성되어 있는 `Menu Product`를 갖는다.
+- `Menu`는 메뉴의 공개 상태를 표현하는 `Menu Displayed`를 갖는다.
+
+#### 행위
+- `Menu`를 등록한다.
+- `Menu`의 `Menu Price`를 변경한다.
+- `Menu`의 공개 상태를 `공개`로 변경한다.
+- `Menu`의 공개 상태를 `비공개`로 변경한다.
+- `Menu` 목록을 조회한다.
 
 
