@@ -119,16 +119,17 @@ docker compose -p kitchenpos up -d
 | 상품 가격    | Product Price        | 상품의 가격이며 음수가 될 수 없다.                      |
 | 상품 이름    | Product Name         | 상품의 이름이며 상품의 이름은 비속어를 포함 할 수 없다.          |
 | 비속어      | Profanity         | 비속어                                       |
-| 상품 생성    | Create Product       | 상품을 키친포스에 생성한다.                           |
+| 상품 등록    | Create Product       | 상품을 키친포스에 등록한다.                           |
 | 상품 가격 변경 | Change Product Price | 상품의 가격을 변경한다                              |
 | 상품 목록 조회 | Products             | 키친포스에 등록되어 있는 상품 목록을 확인한다                 |
 
 ### 메뉴그룹
-| 한글명     | 영문명               | 설명                          |예시                   |
-|---------|-------------------|-----------------------------|----------------------------------------
-| 메뉴그룹    | Menu Group        | 메뉴들을 특정한 기준대로 모은 `메뉴의 집합`이다 | 치킨, 음료, 콤보 메뉴
-| 메뉴그룹 등록 | Create Menu Group | 메뉴 그룹을 등록한다                 |
-| 메뉴그룹 조회 | MenuGroups        | 메뉴 그룹의 목록을 확인한다             |
+| 한글명      | 영문명               | 설명                          |예시                   |
+|----------|-------------------|-----------------------------|----------------------------------------
+| 메뉴 그룹    | Menu Group        | 메뉴들을 특정한 기준대로 모은 `메뉴의 집합`이다 | 치킨, 음료, 콤보 메뉴
+| 메뉴 그룹 이름 | Menu Group Name        | `메뉴 집합`의 이름                 |
+| 메뉴그룹 등록  | Create Menu Group | 메뉴 그룹을 등록한다                 |
+| 메뉴그룹 조회  | MenuGroups        | 메뉴 그룹의 목록을 확인한다             |
 
 ### 메뉴 속성
 | 한글명      | 영문명               | 설명                                             |예시                   |
@@ -225,7 +226,7 @@ docker compose -p kitchenpos up -d
 - `Product`는 `Product Name`을 갖는다.
 
 ### 상품의 행위
-- `Product`를 생성한다.
+- `Product`를 등록한다.
 - `Product Price`를 변경한다.
 - `Product` 목록을 조회한다.
 
@@ -233,4 +234,19 @@ docker compose -p kitchenpos up -d
 - `Product Price`는 음수가 될 수 없다.
 - `Product Name`는 `Profanity`를 포함 할 수 없다.
 - `Produc Price`가 변경될 때 `Menu Product` 상품 금액의 합보다 크다면 메뉴가 숨겨진다.
+
+### 메뉴 그룹
+
+#### 속성
+- `Menu Group`은 식별자를 갖는다.
+- `Menu Group`은 `Menu Group Name`을 갖는다.
+
+#### 행위
+- `Menu Group`을 등록 한다.
+- `Menu Group` 목록을 조회 한다.
+
+#### 정책
+- `Menu Group`의 이름은 공백이 될 수 없다.
+
+
 
