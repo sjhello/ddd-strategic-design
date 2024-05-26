@@ -276,7 +276,7 @@ docker compose -p kitchenpos up -d
 - `Menu Product`를 1개 이상 가지고 있어야 한다.
 - `Menu Name`은 공백이 될 수 없다.
 - `Menu Name`은 `Profanity`를 포함 할 수 없다.
-- `Menu Price`는 0 이상 이어야 한다.
+- `Menu Price`는 0원 이상 이어야 한다.
 - `Menu Price`는 `Menu Product`의 가격(`상품의 가격` * `상품의 수량`) 보다 같거나 낮아야 한다.
 
 ##### `Menu Price` 변경
@@ -304,7 +304,7 @@ docker compose -p kitchenpos up -d
 #### 정책 
 - `Order Table`의 `Order Table Name`은 공백이 될 수 없다.
 - `Order Table`의 `Order Table Status`를 `Not Occupied`로 설정하려면 `Order`의 `Order Status`가 `Completed` 이어야 한다.
-- `Order Table`의 `Number Of Guests`는 0 이상 이어야 한다.
+- `Order Table`의 `Number Of Guests`는 0명 이상 이어야 한다.
 - `Order Table`의 `Order Table Status`가 `Occupied`일 경우에만 `Number of Guests`를 변경 할 수 있다.
 
 ### 주문
@@ -337,7 +337,7 @@ docker compose -p kitchenpos up -d
 - `Order Line Item`을 1개 이상 가지고 있어야 한다.
 - `Order Line Item`의 `Price`와 `Menu Price`가 같아야 한다.
 - 생성된 `Order`의 `Order Status`는 `Waiting`이어야 한다.
-- 생성된 `Order`의 `Order Date Time`은 `Order` 생성 요청을 한 `시간` 이여야 한다.
+- 생성된 `Order`의 `Order Date Time`은 `Order` 생성 요청을 한 `시간` 이어야 한다.
 
 ### 매장 주문
 #### 속성
