@@ -158,12 +158,13 @@ docker compose -p kitchenpos up -d
 | 테이블 점유 상태    | Order Table Status    | 테이블의 점유 여부를 말한다.                              |
 
 ### 주문 테이블의 행위
-| 한글명          | 영문명                   | 설명                                           |예시                   |
-|--------------|-----------------------|----------------------------------------------|----------------------------------------
-| 테이블 점유       | Occupied              | 손님이 테이블을 사용할 수 없는 상태로 변경한다                   |테이블에 손님이 앉는다. 테이블 사용 상태가 `점유`으로 변경 된다.
-| 테이블 미점유      | Not Occupied          | 손님이 테이블을 사용할 수 있는 상태로 변경한다                   |테이블에 있던 손님이 떠난다. 테이블 사용상태고 `미점유`으로 변경되며 테이블의 손님 수가 0명이 된다.
+| 한글명          | 영문명                   | 설명                                            |예시                   |
+|--------------|-----------------------|-----------------------------------------------|----------------------------------------
+| 주문 테이블 등록    | Order Table Create    | 주문 테이블을 등록한다.                                 |
+| 테이블 점유       | Occupied              | 손님이 테이블을 사용할 수 없는 상태로 변경한다                    |테이블에 손님이 앉는다. 테이블 사용 상태가 `점유`으로 변경 된다.
+| 테이블 미점유      | Not Occupied          | 손님이 테이블을 사용할 수 있는 상태로 변경한다                    |테이블에 있던 손님이 떠난다. 테이블 사용상태고 `미점유`으로 변경되며 테이블의 손님 수가 0명이 된다.
 | 손님 수 변경      | Chage Number Of Guest | 테이블의 손님 수를 변경한다. 테이블의 손님이 0명 이상 일때 변경 할 수 있다. |
-| 주문 테이블 목록 조회 | OrderTables           | 주문 테이블의 목록을 확인한다.                            |
+| 주문 테이블 목록 조회 | OrderTables           | 주문 테이블의 목록을 확인한다.                             |
 
 ### 주문
 | 한글명   | 영문명             | 설명                                                             |예시                   |
@@ -264,4 +265,24 @@ docker compose -p kitchenpos up -d
 - `Menu`의 공개 상태를 `비공개`로 변경한다.
 - `Menu` 목록을 조회한다.
 
+### 주문 테이블
+
+#### 속성
+- `Order Table`은 식별자를 갖는다.
+- `Order Table`은 `Order Table Name`을 갖는다.
+- `Order Table`은 주문 테이블을 사용하는 손님의 수를 나타내는 `Number of Guests`를 갖는다.
+- `Order Table`은 테이블의 점유 여부를 나타내는 `Order Table Status`를 갖는다. 
+
+#### 행위
+- `Order Table`을 등록한다.
+- `Order Table`의 `Order Table Status`를 `Occupied`로 설정한다.
+- `Order Table`의 `Order Table Status`를 `Not Occupied`로 설정한다.
+- `Order Table`의 `Number of Guests`를 변경한다.
+- `Order Table`의 목록을 조회한다.
+
+#### 정책 
+- `Order Table`의 `Order Table Name`은 공백이 될 수 없다.
+- `Order Table`의 `Order Table Status`를 `Not Occupied`로 설정하려면 `Order`의 `Order Status`가 `Completed` 이어야 한다.
+- `Order Table`의 `Number Of Guests`는 0 이상 이어야 한다.
+- `Order Table`의 `Order Table Status`가 `Occupied`일 경우에만 `Number of Guests`를 변경 할 수 있다.
 
