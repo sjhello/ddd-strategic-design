@@ -227,7 +227,9 @@ docker compose -p kitchenpos up -d
 #### 속성
 - `Product`는 식별자를 갖는다.
 - `Product`는 `Product Price`를 갖는다.
+  - `Product Price`는 음수가 될 수 없다.
 - `Product`는 `Product Name`을 갖는다.
+  - `Product Name`는 `Profanity`를 포함 할 수 없다.
 
 #### 행위
 - `Product`를 등록한다.
@@ -235,33 +237,36 @@ docker compose -p kitchenpos up -d
 - `Product` 목록을 조회한다.
 
 #### 정책
-- `Product Price`는 음수가 될 수 없다.
-- `Product Name`는 `Profanity`를 포함 할 수 없다.
 - `Produc Price`가 변경될 때 `Menu Product` 상품 금액의 합보다 크다면 메뉴가 숨겨진다.
 
 ### 메뉴 그룹
 #### 속성
 - `Menu Group`은 식별자를 갖는다.
 - `Menu Group`은 `Menu Group Name`을 갖는다.
+  - `Menu Group`의 `Menu Group Name`은 공백이 될 수 없다.
 
 #### 행위
 - `Menu Group`을 등록 한다.
 - `Menu Group` 목록을 조회 한다.
 
-#### 정책
-- `Menu Group`의 `Menu Group Name`은 공백이 될 수 없다.
-
 ### 메뉴
 #### 속성
 - `Menu`는 식별자를 갖는다.
 - `Menu`는 `Menu Name`을 갖는다.
+  - `Menu Name`은 공백이 될 수 없다.
+  - `Menu Name`은 `Profanity`를 포함 할 수 없다.
 - `Menu`는 `Menu Price`를 갖는다.
+  - `Menu Price`는 0원 이상 이어야 한다.
 - `Menu`는 `Menu Group`을 갖는다.
 - `Menu`는 `Menu Product`를 갖는다.
   - `Menu Product`는 식별자를 갖는다.
   - `Menu Product`는 `Product`를 갖는다.
   - `Menu Product`는 `Quantity`를 갖는다.
 - `Menu`는 메뉴의 공개 상태를 표현하는 `Menu Displayed`를 갖는다.
+
+#### 연관 관계
+- 여러개의 `Menu`는 하나의 `Menu Group`에 속한다. (N : 1)
+- 하나의 `Menu`는 여러개의 `Menu Product`를 갖는다. (1 : N)
 
 #### 행위
 - `Menu`를 등록한다.
@@ -274,9 +279,6 @@ docker compose -p kitchenpos up -d
 ##### `Menu` 등록
 - `Menu`는 하나 이상의 `Menu Group`에 속해 있어야 한다.
 - `Menu Product`를 1개 이상 가지고 있어야 한다.
-- `Menu Name`은 공백이 될 수 없다.
-- `Menu Name`은 `Profanity`를 포함 할 수 없다.
-- `Menu Price`는 0원 이상 이어야 한다.
 - `Menu Price`는 `Menu Product`의 가격(`상품의 가격` * `상품의 수량`) 보다 같거나 낮아야 한다.
 
 ##### `Menu Price` 변경
@@ -291,7 +293,9 @@ docker compose -p kitchenpos up -d
 #### 속성
 - `Order Table`은 식별자를 갖는다.
 - `Order Table`은 `Order Table Name`을 갖는다.
+  - `Order Table`의 `Order Table Name`은 공백이 될 수 없다.
 - `Order Table`은 주문 테이블을 사용하는 손님의 수를 나타내는 `Number of Guests`를 갖는다.
+  - `Order Table`의 `Number Of Guests`는 0명 이상 이어야 한다.
 - `Order Table`은 테이블의 점유 여부를 나타내는 `Order Table Status`를 갖는다. 
 
 #### 행위
@@ -301,10 +305,8 @@ docker compose -p kitchenpos up -d
 - `Order Table`의 `Number of Guests`를 변경한다.
 - `Order Table`의 목록을 조회한다.
 
-#### 정책 
-- `Order Table`의 `Order Table Name`은 공백이 될 수 없다.
+#### 정책
 - `Order Table`의 `Order Table Status`를 `Not Occupied`로 설정하려면 `Order`의 `Order Status`가 `Completed` 이어야 한다.
-- `Order Table`의 `Number Of Guests`는 0명 이상 이어야 한다.
 - `Order Table`의 `Order Table Status`가 `Occupied`일 경우에만 `Number of Guests`를 변경 할 수 있다.
 
 ### 주문
