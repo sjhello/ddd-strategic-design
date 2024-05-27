@@ -283,7 +283,7 @@ docker compose -p kitchenpos up -d
 - `Menu Price`는 `Menu Product`의 가격(`상품의 가격` * `상품의 수량`) 보다 같거나 낮아야 한다.
 
 ##### `Menu`의 공개 상태를 `공개`로 변경
-- `Menu Price`가 `Menu Product`의 가격(`상품의 가격` * `상품의 수량`)이 높은 경우 `Menu`를 `공개`로 변경하지 않는다.
+- `Menu Price`가 `Menu Product`의 가격(`상품의 가격` * `상품의 수량`)이 높은 경우 `Menu`를 `공개`할 수 없다.
 
 
 ### 주문 테이블
