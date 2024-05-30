@@ -1,8 +1,8 @@
 package kitchenpos;
 
-import kitchenpos.domain.Menu;
+import kitchenpos.menus.domain.Menu;
 import kitchenpos.menugroups.domain.MenuGroup;
-import kitchenpos.domain.MenuProduct;
+import kitchenpos.menus.domain.MenuProduct;
 import kitchenpos.domain.Order;
 import kitchenpos.domain.OrderLineItem;
 import kitchenpos.domain.OrderStatus;

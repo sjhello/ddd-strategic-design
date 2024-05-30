@@ -1,4 +1,4 @@
-package kitchenpos.domain;
+package kitchenpos.menus.domain;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +15,3 @@ public interface MenuRepository {
 
     List<Menu> findAllByProductId(UUID productId);
 }
-
