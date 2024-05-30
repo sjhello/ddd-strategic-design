@@ -267,6 +267,14 @@ docker compose -p kitchenpos up -d
 #### 연관 관계
 - 여러개의 `Menu`는 하나의 `Menu Group`에 속한다. (N : 1)
 - 하나의 `Menu`는 여러개의 `Menu Product`를 갖는다. (1 : N)
+```mermaid
+erDiagram
+  Menu ||--|{ MenuProduct : ""
+  MenuGroup ||--o{ Menu : ""
+  MenuProduct }|--|| Product : ""
+```
+
+
 
 #### 행위
 - `Menu`를 등록한다.
