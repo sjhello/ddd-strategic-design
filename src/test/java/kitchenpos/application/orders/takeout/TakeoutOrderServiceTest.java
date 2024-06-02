@@ -1,6 +1,6 @@
 package kitchenpos.application.orders.takeout;
 
-import kitchenpos.application.InMemoryMenuRepository;
+import kitchenpos.application.menus.InMemoryMenuRepository;
 import kitchenpos.orders.takeout.domain.TakeoutOrderStatus;
 import kitchenpos.menus.domain.MenuRepository;
 import kitchenpos.orders.common.OrderType;

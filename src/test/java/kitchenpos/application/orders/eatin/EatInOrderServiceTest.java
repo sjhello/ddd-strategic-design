@@ -1,6 +1,6 @@
 package kitchenpos.application.orders.eatin;
 
-import kitchenpos.application.InMemoryMenuRepository;
+import kitchenpos.application.menus.InMemoryMenuRepository;
 import kitchenpos.orders.common.OrderType;
 import kitchenpos.orders.eatin.domain.*;
 import kitchenpos.menus.domain.MenuRepository;
