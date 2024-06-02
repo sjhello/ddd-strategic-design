@@ -78,8 +78,8 @@ public class DeliveryFixtures {
     public static DeliveryOrder order(final DeliveryOrderStatus status) {
         final DeliveryOrder order = new DeliveryOrder();
         order.setId(UUID.randomUUID());
-        order.setType(OrderType.DELIVERY);
         order.setStatus(status);
+        order.setOrderLineItems(Arrays.asList(orderLineItem()));
         return order;
     }
 

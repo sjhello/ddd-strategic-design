@@ -196,7 +196,8 @@ class DeliveryOrderServiceTest {
     }
 
     @DisplayName("배달 주문만 배달할 수 있다.")
-    @Test
+    @EnumSource(value = OrderType.class, names = "DELIVERY", mode = EnumSource.Mode.EXCLUDE)
+    @ParameterizedTest
     void startDeliveryWithoutDeliveryOrder() {
         final UUID orderId = orderRepository.save(order(DeliveryOrderStatus.SERVED)).getId();
         assertThatThrownBy(() -> orderService.startDelivery(orderId))
