@@ -23,18 +23,18 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final MenuGroupRepository menuGroupRepository;
     private final ProductRepository productRepository;
-    private final PurgomalumClient purgomalumClient;
+    private final PurgomalumClient menuProfanityChecker;
 
     public MenuService(
-        final MenuRepository menuRepository,
-        final MenuGroupRepository menuGroupRepository,
-        final ProductRepository productRepository,
-        final PurgomalumClient purgomalumClient
+            MenuRepository menuRepository,
+            MenuGroupRepository menuGroupRepository,
+            ProductRepository productRepository,
+            PurgomalumClient menuProfanityChecker
     ) {
         this.menuRepository = menuRepository;
         this.menuGroupRepository = menuGroupRepository;
         this.productRepository = productRepository;
-        this.purgomalumClient = purgomalumClient;
+        this.menuProfanityChecker = menuProfanityChecker;
     }
 
     @Transactional
@@ -79,7 +79,7 @@ public class MenuService {
             throw new IllegalArgumentException();
         }
         final String name = request.getName();
-        if (Objects.isNull(name) || purgomalumClient.containsProfanity(name)) {
+        if (Objects.isNull(name) || menuProfanityChecker.containsProfanity(name)) {
             throw new IllegalArgumentException();
         }
         final Menu menu = new Menu();
