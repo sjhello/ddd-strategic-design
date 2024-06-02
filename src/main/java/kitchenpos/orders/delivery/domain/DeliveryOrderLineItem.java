@@ -1,15 +1,6 @@
-package kitchenpos.domain;
+package kitchenpos.orders.delivery.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import kitchenpos.menus.domain.Menu;
 
 import java.math.BigDecimal;
@@ -17,7 +8,7 @@ import java.util.UUID;
 
 @Table(name = "order_line_item")
 @Entity
-public class OrderLineItem {
+public class DeliveryOrderLineItem {
     @Column(name = "seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -40,7 +31,7 @@ public class OrderLineItem {
     @Transient
     private BigDecimal price;
 
-    public OrderLineItem() {
+    public DeliveryOrderLineItem() {
     }
 
     public Long getSeq() {

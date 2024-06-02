@@ -1,17 +1,7 @@
-package kitchenpos.domain;
+package kitchenpos.orders.delivery.domain;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
+import kitchenpos.orders.common.OrderType;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,7 +9,7 @@ import java.util.UUID;
 
 @Table(name = "orders")
 @Entity
-public class Order {
+public class DeliveryOrder {
     @Column(name = "id", columnDefinition = "binary(16)")
     @Id
     private UUID id;
@@ -30,7 +20,7 @@ public class Order {
 
     @Column(name = "status", nullable = false, columnDefinition = "varchar(255)")
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private DeliveryOrderStatus status;
 
     @Column(name = "order_date_time", nullable = false)
     private LocalDateTime orderDateTime;
@@ -42,23 +32,15 @@ public class Order {
         columnDefinition = "binary(16)",
         foreignKey = @ForeignKey(name = "fk_order_line_item_to_orders")
     )
-    private List<OrderLineItem> orderLineItems;
+    private List<DeliveryOrderLineItem> orderLineItems;
 
     @Column(name = "delivery_address")
     private String deliveryAddress;
 
-    @ManyToOne
-    @JoinColumn(
-        name = "order_table_id",
-        columnDefinition = "binary(16)",
-        foreignKey = @ForeignKey(name = "fk_orders_to_order_table")
-    )
-    private OrderTable orderTable;
-
     @Transient
     private UUID orderTableId;
 
-    public Order() {
+    public DeliveryOrder() {
     }
 
     public UUID getId() {
@@ -77,11 +59,11 @@ public class Order {
         this.type = type;
     }
 
-    public OrderStatus getStatus() {
+    public DeliveryOrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(final OrderStatus status) {
+    public void setStatus(final DeliveryOrderStatus status) {
         this.status = status;
     }
 
@@ -93,11 +75,11 @@ public class Order {
         this.orderDateTime = orderDateTime;
     }
 
-    public List<OrderLineItem> getOrderLineItems() {
+    public List<DeliveryOrderLineItem> getOrderLineItems() {
         return orderLineItems;
     }
 
-    public void setOrderLineItems(final List<OrderLineItem> orderLineItems) {
+    public void setOrderLineItems(final List<DeliveryOrderLineItem> orderLineItems) {
         this.orderLineItems = orderLineItems;
     }
 
@@ -107,14 +89,6 @@ public class Order {
 
     public void setDeliveryAddress(final String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
-    }
-
-    public OrderTable getOrderTable() {
-        return orderTable;
-    }
-
-    public void setOrderTable(final OrderTable orderTable) {
-        this.orderTable = orderTable;
     }
 
     public UUID getOrderTableId() {
