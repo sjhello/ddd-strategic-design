@@ -1,16 +1,21 @@
-package kitchenpos;
+package kitchenpos.application.orders.delivery;
 
 import kitchenpos.menugroups.domain.MenuGroup;
 import kitchenpos.menus.domain.Menu;
 import kitchenpos.menus.domain.MenuProduct;
+import kitchenpos.orders.common.OrderType;
+import kitchenpos.orders.delivery.domain.DeliveryOrder;
+import kitchenpos.orders.delivery.domain.DeliveryOrderLineItem;
+import kitchenpos.orders.delivery.domain.DeliveryOrderStatus;
 import kitchenpos.products.domain.Product;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
 
-public class Fixtures {
+public class DeliveryFixtures {
     public static final UUID INVALID_ID = new UUID(0L, 0L);
 
     public static Menu menu() {
@@ -57,6 +62,32 @@ public class Fixtures {
         menuProduct.setProduct(product);
         menuProduct.setQuantity(quantity);
         return menuProduct;
+    }
+
+    public static DeliveryOrder order(final DeliveryOrderStatus status, final String deliveryAddress) {
+        final DeliveryOrder order = new DeliveryOrder();
+        order.setId(UUID.randomUUID());
+        order.setType(OrderType.DELIVERY);
+        order.setStatus(status);
+        order.setOrderDateTime(LocalDateTime.of(2020, 1, 1, 12, 0));
+        order.setOrderLineItems(Arrays.asList(orderLineItem()));
+        order.setDeliveryAddress(deliveryAddress);
+        return order;
+    }
+
+    public static DeliveryOrder order(final DeliveryOrderStatus status) {
+        final DeliveryOrder order = new DeliveryOrder();
+        order.setId(UUID.randomUUID());
+        order.setStatus(status);
+        order.setOrderLineItems(Arrays.asList(orderLineItem()));
+        return order;
+    }
+
+    public static DeliveryOrderLineItem orderLineItem() {
+        final DeliveryOrderLineItem orderLineItem = new DeliveryOrderLineItem();
+        orderLineItem.setSeq(new Random().nextLong());
+        orderLineItem.setMenu(menu());
+        return orderLineItem;
     }
 
     public static Product product() {

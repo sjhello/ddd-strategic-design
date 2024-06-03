@@ -223,7 +223,7 @@ docker compose -p kitchenpos up -d
 
 ## 모델링
 
-### 상품
+### 상품(Product)
 #### 속성
 - `Product`는 식별자를 갖는다.
 - `Product`는 `Product Price`를 갖는다.
@@ -239,7 +239,7 @@ docker compose -p kitchenpos up -d
 #### 정책
 - `Produc Price`가 변경될 때 `Menu Product` 상품 금액의 합보다 크다면 메뉴가 숨겨진다.
 
-### 메뉴 그룹
+### 메뉴 그룹(MenuGroup)
 #### 속성
 - `Menu Group`은 식별자를 갖는다.
 - `Menu Group`은 `Menu Group Name`을 갖는다.
@@ -249,7 +249,7 @@ docker compose -p kitchenpos up -d
 - `Menu Group`을 등록 한다.
 - `Menu Group` 목록을 조회 한다.
 
-### 메뉴
+### 메뉴(Menu)
 #### 속성
 - `Menu`는 식별자를 갖는다.
 - `Menu`는 `Menu Name`을 갖는다.
@@ -267,6 +267,14 @@ docker compose -p kitchenpos up -d
 #### 연관 관계
 - 여러개의 `Menu`는 하나의 `Menu Group`에 속한다. (N : 1)
 - 하나의 `Menu`는 여러개의 `Menu Product`를 갖는다. (1 : N)
+```mermaid
+erDiagram
+  Menu ||--|{ MenuProduct : ""
+  MenuGroup ||--o{ Menu : ""
+  MenuProduct }|--|| Product : ""
+```
+
+
 
 #### 행위
 - `Menu`를 등록한다.
@@ -288,7 +296,7 @@ docker compose -p kitchenpos up -d
 - `Menu Price`가 `Menu Product`의 가격(`상품의 가격` * `상품의 수량`)이 높은 경우 `Menu`를 `공개`할 수 없다.
 
 
-### 주문 테이블
+### 주문 테이블(OrderTable)
 
 #### 속성
 - `Order Table`은 식별자를 갖는다.
@@ -309,7 +317,7 @@ docker compose -p kitchenpos up -d
 - `Order Table`의 `Order Table Status`를 `Not Occupied`로 설정하려면 `Order`의 `Order Status`가 `Completed` 이어야 한다.
 - `Order Table`의 `Order Table Status`가 `Occupied`일 경우에만 `Number of Guests`를 변경 할 수 있다.
 
-### 주문
+### 주문(Order)
 #### 속성
 - `Order`는 식별자를 갖는다.
 - `Order`는 주문 타입을 구별 할 수 있는 한 가지의 `Order Type`을 갖는다.
@@ -341,7 +349,7 @@ docker compose -p kitchenpos up -d
 - 생성된 `Order`의 `Order Status`는 `Waiting`이어야 한다.
 - 생성된 `Order`의 `Order Date Time`은 `Order` 생성 요청을 한 `시간` 이어야 한다.
 
-### 매장 주문
+### 매장 주문(Eat In Order)
 #### 속성
 - `매장 주문`은 `Order Table`을 갖는다.
 
@@ -356,7 +364,7 @@ docker compose -p kitchenpos up -d
 - `매장 주문`의 `Order Status`가 `Completed`이 되었다면 `Order Table`의 `Number of Guests`를 0명으로 설정하며, `Order Table Status`를 `Not Occupied`로 설정한다.
 - `매장 주문`의 `Order Line Item`의 `Quantity`는 음수를 허용한다.
 
-### 포장 주문
+### 포장 주문(Take Out Order)
 #### 행위
 - `손님`이 `포장 주문`을 등록한다.
 - `사장님`이 `포장 주문`을 접수한다.
@@ -367,7 +375,7 @@ docker compose -p kitchenpos up -d
 - `포장 주문`의 `Order Status`는 `Waiting`, `Accepted`, `Served`, `Completed`의 순서를 갖는다.
 - `포장 주문`의 `Order Line Item`의 `Quantity`는 0개 이상이어야 한다.
 
-### 배달 주문
+### 배달 주문(Delivery Order)
 #### 속성
 - `배달 주문`은 `Delivery Address`를 갖는다.
 

@@ -1,8 +1,12 @@
-package kitchenpos;
+package kitchenpos.application.orders.takeout;
 
 import kitchenpos.menugroups.domain.MenuGroup;
 import kitchenpos.menus.domain.Menu;
 import kitchenpos.menus.domain.MenuProduct;
+import kitchenpos.orders.common.OrderType;
+import kitchenpos.orders.takeout.domain.TakeoutOrder;
+import kitchenpos.orders.takeout.domain.TakeoutOrderLineItem;
+import kitchenpos.orders.takeout.domain.TakeoutOrderStatus;
 import kitchenpos.products.domain.Product;
 
 import java.math.BigDecimal;
@@ -10,7 +14,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
 
-public class Fixtures {
+public class TakeoutOrderFixtures {
     public static final UUID INVALID_ID = new UUID(0L, 0L);
 
     public static Menu menu() {
@@ -57,6 +61,21 @@ public class Fixtures {
         menuProduct.setProduct(product);
         menuProduct.setQuantity(quantity);
         return menuProduct;
+    }
+
+    public static TakeoutOrder order(final TakeoutOrderStatus status) {
+        final TakeoutOrder order = new TakeoutOrder();
+        order.setType(OrderType.TAKEOUT);
+        order.setId(UUID.randomUUID());
+        order.setStatus(status);
+        return order;
+    }
+
+    public static TakeoutOrderLineItem orderLineItem() {
+        final TakeoutOrderLineItem orderLineItem = new TakeoutOrderLineItem();
+        orderLineItem.setSeq(new Random().nextLong());
+        orderLineItem.setMenu(menu());
+        return orderLineItem;
     }
 
     public static Product product() {
